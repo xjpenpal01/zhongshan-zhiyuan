@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>2026中山市中考志愿模拟填报</title>
 <meta name="description" content="2026中山市中考志愿模拟填报，支持普通高中、中职志愿、指标生参考和提交复核。" />
-<meta name="version" content="mobile-picker-v5-school-search-only" />
+<meta name="version" content="mobile-picker-v6-stable-picker" />
 <style>
 :root{--blue:#155eef;--blue2:#0f3f9e;--ink:#101828;--muted:#667085;--line:#d9e3f2;--bg:#f4f7ff;--card:#fff;--danger:#d92d20;--warn:#b54708;--ok:#067647;--soft:#f8fafc;--radius:18px;}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;background:linear-gradient(180deg,#eaf2ff 0,#f7f9ff 240px,#f4f7ff 100%);color:var(--ink);line-height:1.55;-webkit-text-size-adjust:100%;}
@@ -25,12 +25,15 @@
 .picker-list{overflow:auto;-webkit-overflow-scrolling:touch;padding:8px 10px 14px;}
 .picker-option{width:100%;border:0;background:#fff;text-align:left;border-radius:14px;padding:13px 12px;margin:4px 0;font-size:15px;line-height:1.35;color:#172033;border:1px solid #edf1f7;}
 .picker-option:active{background:#eef4ff;}
+.picker-option,.picker-close,.picker-actions .btn{-webkit-tap-highlight-color:transparent;}
 .picker-option.selected{border-color:#155eef;background:#eef4ff;color:#0f3f9e;font-weight:900;}
 .picker-option.empty{color:#667085;font-weight:800;}
 .picker-empty{padding:18px 12px;color:#667085;text-align:center;}
 .picker-actions{display:flex;gap:10px;padding:10px 14px calc(10px + env(safe-area-inset-bottom));border-top:1px solid #eef2f7;background:#fff;}
 .picker-actions .btn{flex:1;}
-body.picker-open{overflow:hidden;touch-action:none;}
+body.picker-open{overflow:hidden;}
+.picker-sheet{touch-action:auto;}
+.picker-list{touch-action:pan-y;}
 select.mobile-select-ready{background-image:linear-gradient(45deg,transparent 50%,#667085 50%),linear-gradient(135deg,#667085 50%,transparent 50%);background-position:calc(100% - 18px) 19px,calc(100% - 12px) 19px;background-size:6px 6px,6px 6px;background-repeat:no-repeat;padding-right:34px;}
 @media(max-width:720px){
   input,select,textarea{min-height:48px;border-radius:14px;}
@@ -147,22 +150,25 @@ function buildVocRows(kind){const body=$(kind==='first'?'vocFirstBody':'vocSecon
 document.querySelectorAll('.voc-school').forEach(s=>s.addEventListener('change',e=>{updateMajorOptions(e.target.dataset.kind,e.target.dataset.row);saveDraft(true);refreshAll();}));document.querySelectorAll('.voc-major').forEach(s=>s.addEventListener('change',()=>{saveDraft(true);refreshAll();}));}
 
 function mobilePickerEnabled(){return window.matchMedia&&window.matchMedia('(max-width: 780px)').matches}
-let __pickerTarget=null,__pickerMode='select',__selectTap=null;
+let __pickerTarget=null,__pickerMode='select',__selectTap=null,__pickerOpenAt=0,__lastOpenedSelect=null;
 function initMobilePickers(){
   document.querySelectorAll('select').forEach(s=>s.classList.add('mobile-select-ready'));
   const backdrop=$('mobilePicker'); if(!backdrop)return;
+  const sheet=backdrop.querySelector('.picker-sheet');
 
-  // 手机端不再在 pointerdown 时立刻弹出选择器；先判断是否为真正点击，避免手指滑动页面时误弹出。
+  // 稳定版手机选择器：阻止原生select，判断真正点击后再打开；滑动页面不误弹，打开后不闪退。
   document.addEventListener('pointerdown',function(e){
+    if(e.target.closest('#mobilePicker'))return;
     const el=e.target.closest('select');
     if(!el||!mobilePickerEnabled()||el.disabled)return;
     __selectTap={el,x:e.clientX,y:e.clientY,moved:false};
+    if(document.activeElement&&typeof document.activeElement.blur==='function')document.activeElement.blur();
     e.preventDefault();
     e.stopPropagation();
   },true);
   document.addEventListener('pointermove',function(e){
     if(!__selectTap)return;
-    if(Math.abs(e.clientX-__selectTap.x)>10||Math.abs(e.clientY-__selectTap.y)>10)__selectTap.moved=true;
+    if(Math.abs(e.clientX-__selectTap.x)>12||Math.abs(e.clientY-__selectTap.y)>12)__selectTap.moved=true;
   },true);
   document.addEventListener('pointerup',function(e){
     if(!__selectTap)return;
@@ -170,16 +176,33 @@ function initMobilePickers(){
     e.preventDefault();
     e.stopPropagation();
     if(tap.moved||!tap.el.isConnected)return;
-    if(document.activeElement&&typeof document.activeElement.blur==='function')document.activeElement.blur();
-    openMobilePicker(tap.el);
+    setTimeout(()=>openMobilePicker(tap.el),0);
   },true);
   document.addEventListener('pointercancel',function(){__selectTap=null;},true);
 
+  // 兼容部分移动浏览器：如果没有稳定触发pointer事件，用click兜底，但避免刚打开后重复触发导致闪退。
+  document.addEventListener('click',function(e){
+    const el=e.target.closest('select');
+    if(!el||!mobilePickerEnabled()||el.disabled)return;
+    e.preventDefault();
+    e.stopPropagation();
+    if(__lastOpenedSelect===el && Date.now()-__pickerOpenAt<450)return;
+    openMobilePicker(el);
+  },true);
+
   $('pickerSearch').addEventListener('input',renderMobilePickerOptions);
-  $('pickerClose').addEventListener('click',closeMobilePicker);
-  $('pickerCancel').addEventListener('click',closeMobilePicker);
-  backdrop.addEventListener('click',e=>{if(e.target===backdrop)closeMobilePicker()});
-  $('pickerUseText').addEventListener('click',()=>{
+  $('pickerClose').addEventListener('click',e=>{e.preventDefault();closeMobilePicker();});
+  $('pickerCancel').addEventListener('click',e=>{e.preventDefault();closeMobilePicker();});
+  if(sheet){
+    sheet.addEventListener('pointerdown',e=>e.stopPropagation());
+    sheet.addEventListener('click',e=>e.stopPropagation());
+  }
+  backdrop.addEventListener('click',e=>{
+    if(Date.now()-__pickerOpenAt<450)return;
+    if(e.target===backdrop)closeMobilePicker();
+  });
+  $('pickerUseText').addEventListener('click',e=>{
+    e.preventDefault();
     if(!__pickerTarget)return;
     if(__pickerMode==='school'){
       const text=clean($('pickerSearch').value)||clean(__pickerTarget.value);
@@ -193,12 +216,10 @@ function pickerLabel(el){
   const td=el.closest('td'); if(td&&td.dataset.label)return td.dataset.label;
   return '请选择';
 }
-function isSearchablePicker(el){
-  // 学生基础信息中，只允许“所在初中学校”显示搜索框；其他下拉项只做纯选项滑动选择。
-  return !!el && el.id === 'juniorSchool';
-}
+function isSearchablePicker(el){return !!el && el.id === 'juniorSchool';}
 function openMobilePicker(el){
-  __pickerTarget=el; __pickerMode='select';
+  if(!el||el.disabled)return;
+  __pickerTarget=el; __pickerMode='select'; __pickerOpenAt=Date.now(); __lastOpenedSelect=el;
   const searchable=isSearchablePicker(el);
   $('pickerTitle').textContent=pickerLabel(el);
   $('pickerSearch').value='';
@@ -210,7 +231,7 @@ function openMobilePicker(el){
   document.body.classList.add('picker-open');
   $('mobilePicker').classList.add('show');
   $('mobilePicker').setAttribute('aria-hidden','false');
-  // 不自动聚焦搜索框，避免手机系统键盘被强制弹出。需要搜索时，家长手动点击搜索框即可。
+  // 不自动聚焦搜索框；只有家长主动点搜索时才弹键盘。
 }
 function closeMobilePicker(){
   const p=$('mobilePicker'); if(!p)return;
@@ -231,7 +252,8 @@ function renderMobilePickerOptions(){
   opts.slice(0,260).forEach(o=>{
     const btn=document.createElement('button'); btn.type='button'; btn.className='picker-option'+(o.selected?' selected':'')+(o.value===''?' empty':'');
     btn.textContent=o.text||'请选择';
-    btn.addEventListener('click',()=>chooseMobilePickerOption(o.value));
+    btn.addEventListener('pointerup',e=>{e.preventDefault();e.stopPropagation();chooseMobilePickerOption(o.value);});
+    btn.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();});
     list.appendChild(btn);
   });
   if(opts.length>260){const div=document.createElement('div');div.className='picker-empty';div.textContent='结果较多，请继续输入关键词缩小范围';list.appendChild(div);}
@@ -240,6 +262,7 @@ function chooseMobilePickerOption(value){
   if(!__pickerTarget)return;
   __pickerTarget.value=value;
   __pickerTarget.dispatchEvent(new Event('change',{bubbles:true}));
+  if(document.activeElement&&typeof document.activeElement.blur==='function')document.activeElement.blur();
   closeMobilePicker();
 }
 function delay(ms){return new Promise(resolve=>setTimeout(resolve,ms))}
