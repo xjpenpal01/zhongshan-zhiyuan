@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <title>2026中山市中考志愿模拟填报</title>
 <meta name="description" content="2026中山市中考志愿模拟填报，支持普通高中、中职志愿、指标生参考和提交复核。" />
-<meta name="version" content="mobile-picker-v6-stable-picker" />
+<meta name="version" content="mobile-picker-v5-school-search-only" />
 <style>
 :root{--blue:#155eef;--blue2:#0f3f9e;--ink:#101828;--muted:#667085;--line:#d9e3f2;--bg:#f4f7ff;--card:#fff;--danger:#d92d20;--warn:#b54708;--ok:#067647;--soft:#f8fafc;--radius:18px;}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;background:linear-gradient(180deg,#eaf2ff 0,#f7f9ff 240px,#f4f7ff 100%);color:var(--ink);line-height:1.55;-webkit-text-size-adjust:100%;}
-.wrap{max-width:1160px;margin:0 auto;padding:16px 14px 52px}.card,.section{background:var(--card);border:1px solid #e4ebf7;border-radius:var(--radius);box-shadow:0 10px 32px rgba(16,24,40,.06);padding:20px}.hero{margin-bottom:16px}.hero .card{padding:18px 20px}h1{font-size:clamp(22px,5vw,34px);line-height:1.15;margin:0 0 6px;color:#0f3f9e;letter-spacing:-.5px}h2{font-size:21px;margin:0 0 6px}h3{font-size:17px;margin:0 0 10px}.lead{color:#344054;font-size:13px;margin:0;line-height:1.45}.muted,.small{color:var(--muted);font-size:13px}.section{margin:16px 0}.section-title{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:14px}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.field{display:flex;flex-direction:column;gap:6px}label{font-size:13px;font-weight:800;color:#344054}.required::after{content:" *";color:var(--danger)}input,select,textarea{width:100%;border:1px solid #cfd9ea;border-radius:12px;padding:11px 12px;font:inherit;background:#fff;color:#172033;min-height:44px}input:focus,select:focus,textarea:focus{outline:3px solid rgba(21,94,239,.18);border-color:#7da2ff}.actions{display:flex;flex-wrap:wrap;gap:10px}.btn{border:0;border-radius:13px;padding:12px 16px;font-weight:900;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px}.btn-primary{background:var(--blue);color:#fff}.btn-secondary{background:#fff;border:1px solid #b8c7e8;color:#0f3f9e}.btn-ghost{background:#f6f8fc;color:#344054}.btn-danger{background:#fff1f0;color:var(--danger);border:1px solid #ffccc7}.btn:disabled{opacity:.62;cursor:not-allowed}.table-wrap{overflow-x:auto;border:1px solid #dfe6f1;border-radius:15px;background:#fff;-webkit-overflow-scrolling:touch}table{width:100%;border-collapse:collapse;min-width:920px}th,td{border-bottom:1px solid #edf1f7;border-right:1px solid #edf1f7;padding:10px;vertical-align:middle;font-size:13px}th{background:#f7faff;color:#344054;font-weight:900;text-align:left;white-space:nowrap}tr:last-child td{border-bottom:0}td:last-child,th:last-child{border-right:0}.order{font-weight:900;color:#0f3f9e;text-align:center}.score{font-weight:900;color:#0f3f9e}.row-note{font-size:12px;color:#667085;margin-top:5px}.pill{display:inline-flex;align-items:center;border-radius:999px;padding:4px 9px;font-size:12px;font-weight:900;white-space:nowrap}.pill-blue{background:#eaf1ff;color:#0f3f9e}.pill-warn{background:#fff7e6;color:var(--warn)}.pill-ok{background:#ecfdf3;color:var(--ok)}.pill-danger{background:#fff1f0;color:var(--danger)}.alert{border-left:4px solid #f59e0b;background:#fffaf0;border-radius:13px;padding:12px 14px;color:#344054}.risk-list{list-style:none;padding:0;margin:0;display:grid;gap:10px}.risk-item{border-radius:14px;border:1px solid #e5e7eb;padding:11px 12px;display:flex;gap:10px;background:#fff}.risk-item b{display:block}.risk-item p{margin:4px 0 0}.risk-high{background:#fff1f0;border-color:#ffccc7}.risk-mid{background:#fff7e6;border-color:#ffd591}.risk-low{background:#ecfdf3;border-color:#abefc6}.risk-icon{width:24px;height:24px;border-radius:99px;display:grid;place-items:center;font-weight:900;background:#fff;flex:0 0 24px}.report{white-space:pre-wrap;background:#0f172a;color:#e5e7eb;border-radius:14px;padding:14px;min-height:180px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;font-size:13px;overflow:auto}.complete{height:9px;background:#eef2f7;border-radius:99px;overflow:hidden}.complete span{display:block;height:100%;width:0;background:linear-gradient(90deg,#155eef,#53a6ff);transition:.2s}.privacy{margin:12px 0;padding:12px;border-radius:13px;border:1px solid #dce6fb;background:#f7faff}.privacy label{display:flex;align-items:flex-start;gap:8px;font-weight:700}.privacy input{width:auto;min-height:auto;margin-top:3px}.footer{color:#667085;font-size:12px;margin-top:18px}.toast{display:none;position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#101828;color:#fff;padding:10px 14px;border-radius:999px;font-weight:800;z-index:99;box-shadow:0 8px 24px rgba(0,0,0,.2)}.status-msg{font-size:14px;font-weight:800;color:#344054;margin:8px 0 0}.submit-bar{margin-top:12px;padding:12px;border-radius:15px;background:#f8fbff;border:1px solid #dce6fb}.hidden{display:none!important}
+.wrap{max-width:1160px;margin:0 auto;padding:16px 14px 52px}.card,.section{background:var(--card);border:1px solid #e4ebf7;border-radius:var(--radius);box-shadow:0 10px 32px rgba(16,24,40,.06);padding:20px}.hero{margin-bottom:16px}.hero .card{padding:18px 20px}h1{font-size:clamp(22px,5vw,34px);line-height:1.15;margin:0 0 6px;color:#0f3f9e;letter-spacing:-.5px}h2{font-size:21px;margin:0 0 6px}h3{font-size:17px;margin:0 0 10px}.lead{color:#344054;font-size:13px;margin:0;line-height:1.45}.muted,.small{color:var(--muted);font-size:13px}.section{margin:16px 0}.section-title{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:14px}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.field{display:flex;flex-direction:column;gap:6px}label{font-size:13px;font-weight:800;color:#344054}.required::after{content:" *";color:var(--danger)}input,select,textarea{width:100%;border:1px solid #cfd9ea;border-radius:12px;padding:11px 12px;font:inherit;background:#fff;color:#172033;min-height:44px}input:focus,select:focus,textarea:focus{outline:3px solid rgba(21,94,239,.18);border-color:#7da2ff}.actions{display:flex;flex-wrap:wrap;gap:10px}.btn{border:0;border-radius:13px;padding:12px 16px;font-weight:900;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px}.btn-primary{background:var(--blue);color:#fff}.btn-secondary{background:#fff;border:1px solid #b8c7e8;color:#0f3f9e}.btn-ghost{background:#f6f8fc;color:#344054}.btn-danger{background:#fff1f0;color:var(--danger);border:1px solid #ffccc7}.btn:disabled{opacity:.62;cursor:not-allowed}.table-wrap{overflow-x:auto;border:1px solid #dfe6f1;border-radius:15px;background:#fff;-webkit-overflow-scrolling:touch}table{width:100%;border-collapse:collapse;min-width:920px}th,td{border-bottom:1px solid #edf1f7;border-right:1px solid #edf1f7;padding:10px;vertical-align:middle;font-size:13px}th{background:#f7faff;color:#344054;font-weight:900;text-align:left;white-space:nowrap}tr:last-child td{border-bottom:0}td:last-child,th:last-child{border-right:0}.order{font-weight:900;color:#0f3f9e;text-align:center}.score{font-weight:900;color:#0f3f9e}.row-note{font-size:12px;color:#667085;margin-top:5px}.pill{display:inline-flex;align-items:center;border-radius:999px;padding:4px 9px;font-size:12px;font-weight:900;white-space:nowrap}.pill-blue{background:#eaf1ff;color:#0f3f9e}.pill-warn{background:#fff7e6;color:var(--warn)}.pill-ok{background:#ecfdf3;color:var(--ok)}.pill-danger{background:#fff1f0;color:var(--danger)}.alert{border-left:4px solid #f59e0b;background:#fffaf0;border-radius:13px;padding:12px 14px;color:#344054}.risk-list{list-style:none;padding:0;margin:0;display:grid;gap:10px}.risk-item{border-radius:14px;border:1px solid #e5e7eb;padding:11px 12px;display:flex;gap:10px;background:#fff}.risk-item b{display:block}.risk-item p{margin:4px 0 0}.risk-high{background:#fff1f0;border-color:#ffccc7}.risk-mid{background:#fff7e6;border-color:#ffd591}.risk-low{background:#ecfdf3;border-color:#abefc6}.risk-icon{width:24px;height:24px;border-radius:99px;display:grid;place-items:center;font-weight:900;background:#fff;flex:0 0 24px}.report{white-space:pre-wrap;background:#fff;color:#172033;border:1px solid #dfe6f1;border-radius:14px;padding:14px;min-height:220px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",Arial,sans-serif;font-size:14px;line-height:1.75;overflow:auto}.complete{height:9px;background:#eef2f7;border-radius:99px;overflow:hidden}.complete span{display:block;height:100%;width:0;background:linear-gradient(90deg,#155eef,#53a6ff);transition:.2s}.privacy{margin:12px 0;padding:12px;border-radius:13px;border:1px solid #dce6fb;background:#f7faff}.privacy label{display:flex;align-items:flex-start;gap:8px;font-weight:700}.privacy input{width:auto;min-height:auto;margin-top:3px}.footer{color:#667085;font-size:12px;margin-top:18px}.toast{display:none;position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#101828;color:#fff;padding:10px 14px;border-radius:999px;font-weight:800;z-index:99;box-shadow:0 8px 24px rgba(0,0,0,.2)}.status-msg{font-size:14px;font-weight:800;color:#344054;margin:8px 0 0}.submit-bar{margin-top:12px;padding:12px;border-radius:15px;background:#f8fbff;border:1px solid #dce6fb}.hidden{display:none!important}
 @media(max-width:900px){.grid{grid-template-columns:1fr 1fr}.report-grid{grid-template-columns:1fr!important}}
 @media(max-width:720px){.wrap{padding:10px 8px 84px}.hero{margin-bottom:10px}.hero .card{padding:13px 14px}.card,.section{padding:15px;border-radius:16px}.lead{font-size:12.5px}.section-title{display:block}.grid{grid-template-columns:1fr}.field[style]{grid-column:auto!important}.actions{display:grid;grid-template-columns:1fr;gap:9px}.btn{width:100%;font-size:15px}.table-wrap{overflow:visible;border:0;background:transparent}table{min-width:0}thead{display:none}tbody,tr,td{display:block;width:100%}tr{margin:12px 0;border:1px solid #e1e7f5;border-radius:15px;background:#fff;box-shadow:0 6px 18px rgba(16,24,40,.04);padding:8px}td{display:grid;grid-template-columns:88px minmax(0,1fr);gap:8px;align-items:center;border:0;border-bottom:1px solid #edf1f7;padding:9px 6px}td:last-child{border-bottom:0}td::before{content:attr(data-label);font-weight:900;color:#667085;font-size:12px}td.order{display:block;text-align:left;background:#f7faff;border-radius:10px;padding:8px 10px;margin-bottom:6px}td.order::before{content:"";display:none}select,input{font-size:16px}.report{font-size:12px;max-height:320px}.submit-bar{position:sticky;bottom:8px;z-index:50;box-shadow:0 10px 30px rgba(16,24,40,.16)}}
 
@@ -25,15 +25,12 @@
 .picker-list{overflow:auto;-webkit-overflow-scrolling:touch;padding:8px 10px 14px;}
 .picker-option{width:100%;border:0;background:#fff;text-align:left;border-radius:14px;padding:13px 12px;margin:4px 0;font-size:15px;line-height:1.35;color:#172033;border:1px solid #edf1f7;}
 .picker-option:active{background:#eef4ff;}
-.picker-option,.picker-close,.picker-actions .btn{-webkit-tap-highlight-color:transparent;}
 .picker-option.selected{border-color:#155eef;background:#eef4ff;color:#0f3f9e;font-weight:900;}
 .picker-option.empty{color:#667085;font-weight:800;}
 .picker-empty{padding:18px 12px;color:#667085;text-align:center;}
 .picker-actions{display:flex;gap:10px;padding:10px 14px calc(10px + env(safe-area-inset-bottom));border-top:1px solid #eef2f7;background:#fff;}
 .picker-actions .btn{flex:1;}
-body.picker-open{overflow:hidden;}
-.picker-sheet{touch-action:auto;}
-.picker-list{touch-action:pan-y;}
+body.picker-open{overflow:hidden;touch-action:none;}
 select.mobile-select-ready{background-image:linear-gradient(45deg,transparent 50%,#667085 50%),linear-gradient(135deg,#667085 50%,transparent 50%);background-position:calc(100% - 18px) 19px,calc(100% - 12px) 19px;background-size:6px 6px,6px 6px;background-repeat:no-repeat;padding-right:34px;}
 @media(max-width:720px){
   input,select,textarea{min-height:48px;border-radius:14px;}
@@ -150,25 +147,22 @@ function buildVocRows(kind){const body=$(kind==='first'?'vocFirstBody':'vocSecon
 document.querySelectorAll('.voc-school').forEach(s=>s.addEventListener('change',e=>{updateMajorOptions(e.target.dataset.kind,e.target.dataset.row);saveDraft(true);refreshAll();}));document.querySelectorAll('.voc-major').forEach(s=>s.addEventListener('change',()=>{saveDraft(true);refreshAll();}));}
 
 function mobilePickerEnabled(){return window.matchMedia&&window.matchMedia('(max-width: 780px)').matches}
-let __pickerTarget=null,__pickerMode='select',__selectTap=null,__pickerOpenAt=0,__lastOpenedSelect=null;
+let __pickerTarget=null,__pickerMode='select',__selectTap=null;
 function initMobilePickers(){
   document.querySelectorAll('select').forEach(s=>s.classList.add('mobile-select-ready'));
   const backdrop=$('mobilePicker'); if(!backdrop)return;
-  const sheet=backdrop.querySelector('.picker-sheet');
 
-  // 稳定版手机选择器：阻止原生select，判断真正点击后再打开；滑动页面不误弹，打开后不闪退。
+  // 手机端不再在 pointerdown 时立刻弹出选择器；先判断是否为真正点击，避免手指滑动页面时误弹出。
   document.addEventListener('pointerdown',function(e){
-    if(e.target.closest('#mobilePicker'))return;
     const el=e.target.closest('select');
     if(!el||!mobilePickerEnabled()||el.disabled)return;
     __selectTap={el,x:e.clientX,y:e.clientY,moved:false};
-    if(document.activeElement&&typeof document.activeElement.blur==='function')document.activeElement.blur();
     e.preventDefault();
     e.stopPropagation();
   },true);
   document.addEventListener('pointermove',function(e){
     if(!__selectTap)return;
-    if(Math.abs(e.clientX-__selectTap.x)>12||Math.abs(e.clientY-__selectTap.y)>12)__selectTap.moved=true;
+    if(Math.abs(e.clientX-__selectTap.x)>10||Math.abs(e.clientY-__selectTap.y)>10)__selectTap.moved=true;
   },true);
   document.addEventListener('pointerup',function(e){
     if(!__selectTap)return;
@@ -176,33 +170,16 @@ function initMobilePickers(){
     e.preventDefault();
     e.stopPropagation();
     if(tap.moved||!tap.el.isConnected)return;
-    setTimeout(()=>openMobilePicker(tap.el),0);
+    if(document.activeElement&&typeof document.activeElement.blur==='function')document.activeElement.blur();
+    openMobilePicker(tap.el);
   },true);
   document.addEventListener('pointercancel',function(){__selectTap=null;},true);
 
-  // 兼容部分移动浏览器：如果没有稳定触发pointer事件，用click兜底，但避免刚打开后重复触发导致闪退。
-  document.addEventListener('click',function(e){
-    const el=e.target.closest('select');
-    if(!el||!mobilePickerEnabled()||el.disabled)return;
-    e.preventDefault();
-    e.stopPropagation();
-    if(__lastOpenedSelect===el && Date.now()-__pickerOpenAt<450)return;
-    openMobilePicker(el);
-  },true);
-
   $('pickerSearch').addEventListener('input',renderMobilePickerOptions);
-  $('pickerClose').addEventListener('click',e=>{e.preventDefault();closeMobilePicker();});
-  $('pickerCancel').addEventListener('click',e=>{e.preventDefault();closeMobilePicker();});
-  if(sheet){
-    sheet.addEventListener('pointerdown',e=>e.stopPropagation());
-    sheet.addEventListener('click',e=>e.stopPropagation());
-  }
-  backdrop.addEventListener('click',e=>{
-    if(Date.now()-__pickerOpenAt<450)return;
-    if(e.target===backdrop)closeMobilePicker();
-  });
-  $('pickerUseText').addEventListener('click',e=>{
-    e.preventDefault();
+  $('pickerClose').addEventListener('click',closeMobilePicker);
+  $('pickerCancel').addEventListener('click',closeMobilePicker);
+  backdrop.addEventListener('click',e=>{if(e.target===backdrop)closeMobilePicker()});
+  $('pickerUseText').addEventListener('click',()=>{
     if(!__pickerTarget)return;
     if(__pickerMode==='school'){
       const text=clean($('pickerSearch').value)||clean(__pickerTarget.value);
@@ -216,10 +193,12 @@ function pickerLabel(el){
   const td=el.closest('td'); if(td&&td.dataset.label)return td.dataset.label;
   return '请选择';
 }
-function isSearchablePicker(el){return !!el && el.id === 'juniorSchool';}
+function isSearchablePicker(el){
+  // 学生基础信息中，只允许“所在初中学校”显示搜索框；其他下拉项只做纯选项滑动选择。
+  return !!el && el.id === 'juniorSchool';
+}
 function openMobilePicker(el){
-  if(!el||el.disabled)return;
-  __pickerTarget=el; __pickerMode='select'; __pickerOpenAt=Date.now(); __lastOpenedSelect=el;
+  __pickerTarget=el; __pickerMode='select';
   const searchable=isSearchablePicker(el);
   $('pickerTitle').textContent=pickerLabel(el);
   $('pickerSearch').value='';
@@ -231,7 +210,7 @@ function openMobilePicker(el){
   document.body.classList.add('picker-open');
   $('mobilePicker').classList.add('show');
   $('mobilePicker').setAttribute('aria-hidden','false');
-  // 不自动聚焦搜索框；只有家长主动点搜索时才弹键盘。
+  // 不自动聚焦搜索框，避免手机系统键盘被强制弹出。需要搜索时，家长手动点击搜索框即可。
 }
 function closeMobilePicker(){
   const p=$('mobilePicker'); if(!p)return;
@@ -252,8 +231,7 @@ function renderMobilePickerOptions(){
   opts.slice(0,260).forEach(o=>{
     const btn=document.createElement('button'); btn.type='button'; btn.className='picker-option'+(o.selected?' selected':'')+(o.value===''?' empty':'');
     btn.textContent=o.text||'请选择';
-    btn.addEventListener('pointerup',e=>{e.preventDefault();e.stopPropagation();chooseMobilePickerOption(o.value);});
-    btn.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();});
+    btn.addEventListener('click',()=>chooseMobilePickerOption(o.value));
     list.appendChild(btn);
   });
   if(opts.length>260){const div=document.createElement('div');div.className='picker-empty';div.textContent='结果较多，请继续输入关键词缩小范围';list.appendChild(div);}
@@ -262,7 +240,6 @@ function chooseMobilePickerOption(value){
   if(!__pickerTarget)return;
   __pickerTarget.value=value;
   __pickerTarget.dispatchEvent(new Event('change',{bubbles:true}));
-  if(document.activeElement&&typeof document.activeElement.blur==='function')document.activeElement.blur();
   closeMobilePicker();
 }
 function delay(ms){return new Promise(resolve=>setTimeout(resolve,ms))}
@@ -306,7 +283,61 @@ function riskLi(level,title,body){const cls=level==='high'?'risk-high':level==='
 function generateReport(){refreshAll();const risks=[];if(!validateBasic()){$('riskList').innerHTML=riskLi('high','家长手机号必填','请先填写正确的家长手机号，方便老师复核后联系。');$('reportText').textContent='请先填写正确的家长手机号，再生成模拟志愿风险报告。';return null}const scoreA=userScore('A'), scoreB=userScore('B');const hs=selectedHigh(), vs=selectedVoc();const junior=clean($('juniorSchool').value);const rows=getIndicatorRows();if(!scoreA)risks.push(riskLi('high','缺少总分A','A类普通高中、中职专业和指标生参考均需使用总分A，请先填写预估总分A。'));if($('bPlan').value)risks.push(riskLi('mid','B类计划先投档','B类计划在A类计划前单独录取，一旦被B类志愿录取，A类计划将自动失效。'));if(($('hasIndicator').value==='是'||$('hasIndicator').value==='不确定')&&!junior)risks.push(riskLi('mid','未选择所在初中','指标生机会与所在初中有关，建议选择所在初中后再复核。'));if($('hasIndicator').value==='是'){const a1=getHigh($('aPlan1').value);if(!a1)risks.push(riskLi('high','指标生需要关注A1','指标生志愿与A类第一志愿绑定，请先填写A1。'));else if(rows&&Object.prototype.hasOwnProperty.call(rows,a1.name)){const line=rows[a1.name];if(line&&scoreA){const diff=scoreA-line;if(diff>=10)risks.push(riskLi('low','A1指标生机会参考',`A1为${a1.name}，总分A高于所在初中指标生参考分数${diff}分，可重点复核。`));else if(diff>=0)risks.push(riskLi('mid','A1指标生临界偏稳',`A1为${a1.name}，总分A高于指标生参考分数${diff}分，仍需结合位次复核。`));else if(diff>=-10)risks.push(riskLi('mid','A1指标生可冲',`A1为${a1.name}，总分A低于指标生参考分数${Math.abs(diff)}分，可冲但需谨慎。`));else risks.push(riskLi('high','A1指标生风险较高',`A1为${a1.name}，总分A低于指标生参考分数${Math.abs(diff)}分，风险较高。`));}}}
 for(let i=2;i<=6;i++){const h=getHigh($('aPlan'+i).value);if(h&&h.firstOnly)risks.push(riskLi('high','第一志愿限制',`${h.name}通常只录取填报第一志愿的考生，不建议放在A${i}。`));if(h&&h.firstTwoOnly&&i>=3)risks.push(riskLi('mid','华侨中学志愿顺序',`${h.name}通常只录取第一、二志愿考生，放在A${i}需谨慎。`));}
 const publicHostelCount=hs.filter(h=>h.batch==='A'&&(h.type==='public-hostel'||h.type==='ref-public')).length;if(publicHostelCount>4)risks.push(riskLi('high','公办住宿/参公数量超限',`当前A类中公办住宿和民办参公合计${publicHostelCount}个，规则为不多于4个。`));if($('canDay').value==='否'&&hs.some(h=>h.type==='day'))risks.push(riskLi('high','走读条件风险','你填写“不具备走读条件”，但A类志愿中包含走读计划。'));if($('acceptPrivate').value==='不接受'&&hs.some(h=>h.type==='private-self'))risks.push(riskLi('high','民办自费风险','你填写“不接受民办自费”，但志愿中包含自费生计划。'));const seen=new Set();hs.filter(h=>h.batch==='A').forEach(h=>{const key=h.code+'-'+h.plan;if(seen.has(key))risks.push(riskLi('mid','重复志愿提醒',`${h.name}（${h.plan}）在A类志愿中重复出现，请检查。`));seen.add(key);});hs.forEach(h=>{const us=h.batch==='B'?(scoreB||scoreA):scoreA;if(us&&h.score!=null){const diff=us-h.score;if(diff<-15)risks.push(riskLi('high','分差较大',`${h.order} ${h.name}低于参考分数${Math.abs(diff)}分，冲刺风险较高。`));else if(diff<0)risks.push(riskLi('mid','临界志愿',`${h.order} ${h.name}低于参考分数${Math.abs(diff)}分，需要谨慎排序。`));}});vs.forEach(v=>{if(scoreA&&v.score!=null){const diff=scoreA-v.score;if(diff<-15)risks.push(riskLi('high','中职专业分差较大',`${v.school} ${v.major}低于参考分数${Math.abs(diff)}分。`));else if(diff<0)risks.push(riskLi('mid','中职专业临界',`${v.school} ${v.major}低于参考分数${Math.abs(diff)}分。`));}});if(!hs.length&&!vs.length)risks.push(riskLi('high','尚未填写志愿','请至少填写一个普通高中或中职专业志愿。'));if(!risks.length)risks.push(riskLi('low','暂未发现明显规则风险','仍建议结合当年招生计划、位次、学费和住宿条件人工复核。'));
-$('riskList').innerHTML=risks.join('');const lines=[];lines.push('【2026中山市中考志愿模拟报告】');lines.push(`初中：${junior||'未填'}｜家长电话：${clean($('parentPhone').value)||'未填'}`);lines.push(`预估总分A：${clean($('scoreA').value)||'未填'}｜预估总分B：${clean($('scoreB').value)||'未填'}｜指标生：${$('hasIndicator').value}｜走读条件：${$('canDay').value}｜民办自费：${$('acceptPrivate').value}`);lines.push('');lines.push('一、第一批普通高中模拟志愿');lines.push(refreshIndicatorHint());if(hs.length)hs.forEach(h=>lines.push(' - '+highLine(h)));else lines.push(' - 未填写');lines.push('');lines.push('二、中职学校模拟志愿');if(vs.length)vs.forEach(v=>lines.push(' - '+vocLine(v)));else lines.push(' - 未填写');lines.push('');lines.push(`三、风险提醒数量：${risks.length}`);lines.push('请老师结合2026正式招生计划、孩子位次、所在初中指标生情况、住宿/走读条件与家庭学费承受能力复核。');lines.push('声明：本报告仅用于模拟咨询，不代表官方录取结果。');const reportText=lines.join('\\n');$('reportText').textContent=reportText;LAST_REPORT={risks,hs,vs,reportText,indicator_note:refreshIndicatorHint()};saveDraft(true);toast('报告已生成');return LAST_REPORT}
+$('riskList').innerHTML=risks.join('');
+const indicatorText=refreshIndicatorHint();
+function diffText(score,ref){if(!score||ref==null)return '分差：—';const d=score-ref;return `分差：${d>=0?'+':''}${d}分`;}
+function highReportLine(h){const score=h.batch==='B'?(scoreB||scoreA):scoreA;return `${h.order}　${h.name}
+    计划：${h.plan}
+    代码：${h.code}｜参考分：${h.score ?? '—'}｜${diffText(score,h.score)}`;}
+function vocReportLine(v){return `${v.order||''}　${v.school}
+    专业：${v.major}
+    专业代码：${v.majorCode||'—'}｜${v.mode}｜参考分：${v.score ?? '—'}｜${diffText(scoreA,v.score)}`;}
+function riskPlain(html){const title=(html.match(/<b>(.*?)<\/b>/)||[])[1]||'';const body=(html.match(/<p>(.*?)<\/p>/)||[])[1]||'';return (title?title+'：':'')+body;}
+const lines=[];
+lines.push('2026中山市中考志愿模拟报告');
+lines.push('==============================');
+lines.push('');
+lines.push('一、学生基础信息');
+lines.push(`1. 所在初中：${junior||'未填写'}`);
+lines.push(`2. 家长手机号：${clean($('parentPhone').value)||'未填写'}`);
+lines.push(`3. 预估总分A：${clean($('scoreA').value)||'未填写'}`);
+lines.push(`4. 预估总分B：${clean($('scoreB').value)||'未填写'}`);
+lines.push(`5. 指标生资格：${$('hasIndicator').value||'未选择'}`);
+lines.push(`6. 走读条件：${$('canDay').value||'未选择'}`);
+lines.push(`7. 民办自费：${$('acceptPrivate').value||'未选择'}`);
+lines.push(`8. 目标方向：${$('target').value||'未选择'}`);
+lines.push('');
+lines.push('二、第一批普通高中志愿');
+const bChoice=hs.find(h=>h.order==='B0');
+lines.push('【B类计划】');
+lines.push(bChoice?highReportLine(bChoice):'未填写');
+lines.push('');
+lines.push('【A类计划】');
+const aChoices=hs.filter(h=>h.batch==='A');
+if(aChoices.length){aChoices.forEach(h=>{lines.push(highReportLine(h));lines.push('');});}else lines.push('未填写');
+lines.push('【指标生参考】');
+lines.push(indicatorText||'未生成指标生参考提示。');
+lines.push('');
+lines.push('三、中职志愿');
+const firstVoc=vs.filter(v=>v.batch==='firstVoc');
+const secondVoc=vs.filter(v=>v.batch==='secondVoc');
+lines.push('【第一批中职试点专业计划】');
+if(firstVoc.length){firstVoc.forEach(v=>{lines.push(vocReportLine(v));lines.push('');});}else lines.push('未填写');
+lines.push('【第二批本市中职学校志愿】');
+if(secondVoc.length){secondVoc.forEach(v=>{lines.push(vocReportLine(v));lines.push('');});}else lines.push('未填写');
+lines.push('');
+lines.push('四、风险提醒与复核重点');
+lines.push(`风险提醒数量：${risks.length}`);
+risks.forEach((r,i)=>lines.push(`${i+1}. ${riskPlain(r)}`));
+lines.push('');
+lines.push('五、老师复核建议');
+lines.push('1. 请结合2026正式招生计划、孩子位次和当年分数线变化复核。');
+lines.push('2. 有指标生资格的学生，重点复核A1志愿与所在初中往年指标生分数。');
+lines.push('3. 同时确认住宿/走读条件、民办自费学费承受能力和志愿梯度。');
+lines.push('');
+lines.push('声明：本报告仅用于模拟咨询，不代表官方录取结果；最终以官方发布信息和考生家长自主填报为准。');
+const reportText=lines.join('
+');$('reportText').textContent=reportText;LAST_REPORT={risks,hs,vs,reportText,indicator_note:indicatorText};saveDraft(true);toast('报告已生成');return LAST_REPORT}
 function collectPayload(report){const hs=selectedHigh();const find=o=>hs.find(h=>h.order===o);return {parent_phone:clean($('parentPhone').value),junior_school:clean($('juniorSchool').value),score_a:parseInt($('scoreA').value||'',10)||null,score_b:parseInt($('scoreB').value||'',10)||null,hukou_type:'',candidate_type:clean($('target').value),has_indicator:clean($('hasIndicator').value),can_commute:clean($('canDay').value),accept_private:clean($('acceptPrivate').value),b_choice:find('B0')?highLine(find('B0')):'',a1_choice:find('A1')?highLine(find('A1')):'',a2_choice:find('A2')?highLine(find('A2')):'',a3_choice:find('A3')?highLine(find('A3')):'',a4_choice:find('A4')?highLine(find('A4')):'',a5_choice:find('A5')?highLine(find('A5')):'',a6_choice:find('A6')?highLine(find('A6')):'',first_vocational_choice:selectedVoc().filter(v=>v.batch==='firstVoc').map(vocLine).join('\\n'),second_vocational_choice:selectedVoc().filter(v=>v.batch==='secondVoc').map(vocLine).join('\\n'),indicator_note:report.indicator_note||'',risk_count:report.risks.length,report_text:report.reportText,agree_privacy:true,memo:clean($('memo').value)}}
 async function submitForReview(){
   const report=generateReport(); if(!report)return;
