@@ -286,7 +286,7 @@ function isProbablyMobile(){return /Android|iPhone|iPad|iPod|Mobile|HarmonyOS|Mi
 function humanSubmitError(e){
   const msg=(e&&e.message?String(e.message):'提交失败').replace(/^Error:\s*/,'');
   if(msg.includes('Failed to fetch')||msg.includes('NetworkError')||msg.includes('Load failed'))return '手机浏览器没有成功连接到后台接口，可能是网络、跨域或 workers.dev 访问不稳定。';
-  if(msg.includes('AbortError')||msg.includes('timeout'))return '后台响应超时，本次没有确认写入数据库。';
+  if(msg.includes('AbortError')||msg.includes('timeout')||msg.includes('signal is aborted'))return '后台响应超时，本次没有确认写入数据库。';
   return msg;
 }
 async function fetchWithTimeout(url,options,timeoutMs){
@@ -326,6 +326,34 @@ async function pollSubmitStatus(submitId,phone,onStatus,maxMs=16000){
   }
   throw new Error(lastErr||'没有在限定时间内确认数据库写入。');
 }
+function buildQrReturnUrl(){
+  try{
+    const base=new URL('qr.html', window.location.href);
+    return base.origin+base.pathname;
+  }catch(_e){return 'qr.html'}
+}
+function submitPayloadByNativeForm(payload,onStatus){
+  const submitId=payload.client_submit_id||makeClientSubmitId();
+  const base=withSubmitMeta({...payload,client_submit_id:submitId,return_url:buildQrReturnUrl()},'native-form-redirect');
+  savePendingSubmit(base);
+  const form=document.createElement('form');
+  form.method='POST';
+  form.action=SUBMIT_URL+'?t='+Date.now();
+  form.enctype='application/x-www-form-urlencoded';
+  form.acceptCharset='UTF-8';
+  form.style.display='none';
+  form.target='_self';
+  Object.entries(base).forEach(([k,v])=>{
+    const input=document.createElement('input');
+    input.type='hidden';
+    input.name=k;
+    input.value=v==null?'':String(v);
+    form.appendChild(input);
+  });
+  document.body.appendChild(form);
+  onStatus&&onStatus('正在通过手机兼容方式提交，成功后会自动打开二维码页……');
+  form.submit();
+}
 function submitPayloadByHiddenForm(payload,onStatus){
   return new Promise((resolve,reject)=>{
     const iframeName='submit_iframe_'+Date.now()+'_'+Math.random().toString(36).slice(2,6);
@@ -362,21 +390,10 @@ function submitPayloadByHiddenForm(payload,onStatus){
   });
 }
 async function submitPayloadMobileConfirmed(payload,onStatus){
-  const submitId=payload.client_submit_id||makeClientSubmitId();
-  const base=withSubmitMeta({...payload,client_submit_id:submitId},'mobile-form');
-  savePendingSubmit(base);
-  await submitPayloadByHiddenForm(base,onStatus);
-  try{
-    return await pollSubmitStatus(submitId,base.parent_phone,onStatus,16000);
-  }catch(e1){
-    onStatus&&onStatus('兼容通道未确认，正在用标准接口补发确认一次……');
-    try{
-      const data=await postPayloadOnce(SUBMIT_URL,withSubmitMeta(base,'mobile-json-retry'),'application/json;charset=UTF-8',7000);
-      return data;
-    }catch(e2){
-      throw new Error('手机端提交未确认。兼容通道：'+humanSubmitError(e1)+'；补发接口：'+humanSubmitError(e2));
-    }
-  }
+  // v19：手机端不再依赖 fetch/status 轮询。直接让浏览器原生 POST 到 Worker，
+  // Worker 写入 D1 成功后 303 跳回 qr.html。这样能绕开移动端 CORS/AbortController 不稳定问题。
+  submitPayloadByNativeForm(payload,onStatus);
+  return new Promise(()=>{});
 }
 async function submitPayloadConfirmed(payload,onStatus){
   const submitId=makeClientSubmitId();
@@ -387,11 +404,11 @@ async function submitPayloadConfirmed(payload,onStatus){
   }
   onStatus&&onStatus('正在提交到老师后台数据库，请保持页面不要退出……');
   try{
-    return await postPayloadOnce(SUBMIT_URL,withSubmitMeta(base,'confirmed-json'),'application/json;charset=UTF-8',8000);
+    return await postPayloadOnce(SUBMIT_URL,withSubmitMeta(base,'confirmed-json'),'application/json;charset=UTF-8',10000);
   }catch(e1){
     onStatus&&onStatus('第一次提交未确认成功，正在自动重试一次……');
     try{
-      return await postPayloadOnce(SUBMIT_URL,withSubmitMeta(base,'confirmed-text'),'text/plain;charset=UTF-8',8000);
+      return await postPayloadOnce(SUBMIT_URL,withSubmitMeta(base,'confirmed-text'),'text/plain;charset=UTF-8',10000);
     }catch(e2){
       const msg1=humanSubmitError(e1);
       const msg2=humanSubmitError(e2);
@@ -544,7 +561,7 @@ function collectPayload(report){
 async function submitForReview(){
   const report=generateReport(); if(!report)return;
   if(!$('agreePrivacy').checked){$('submitStatus').textContent='请先勾选信息使用说明。';$('agreePrivacy').focus();toast('请先勾选信息使用说明');return}
-  const btn=$('submitBtn'); btn.disabled=true; btn.textContent='正在提交，请勿退出';
+  const btn=$('submitBtn'); btn.disabled=true; btn.textContent=isProbablyMobile()?'正在提交，成功后自动跳转':'正在提交，请勿退出';
   const payload=collectPayload(report);
   try{
     const data=await submitPayloadConfirmed(payload,msg=>{$('submitStatus').textContent=msg});
