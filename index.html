@@ -76,7 +76,7 @@ select.mobile-select-ready{background-image:linear-gradient(45deg,transparent 50
   <div class="hero"><div class="card"><h1>2026中山市中考志愿模拟填报</h1><p class="lead">本页面只模拟第一批普通高中志愿、第一批中职试点专业计划和第二批本市中职学校志愿。填写后可生成风险提示，便于家长提交给老师复核。</p></div></div>
 
   <section class="section" id="info">
-    <div class="section-title"><div><h2>一、学生基础信息</h2><p class="muted">只收集模拟咨询所需信息，不要填写身份证号、准考证号和官方系统密码。</p></div><span class="pill pill-blue">预报名信息</span></div>
+    <div class="section-title"><div><h2>一、学生基础信息</h2><p class="muted">只收集模拟咨询所需信息，不要填写身份证号、准考证号和官方系统密码。</p></div><span class="pill pill-blue">模拟信息</span></div>
     <div class="grid">
       <div class="field"><label class="required">所在初中学校</label><select id="juniorSchool"><option value="">请选择所在初中学校</option></select></div>
       <div class="field"><label class="required">家长手机号</label><input id="parentPhone" type="tel" inputmode="tel" maxlength="11" required placeholder="请填写家长手机号" autocomplete="tel" /></div>
@@ -120,7 +120,7 @@ select.mobile-select-ready{background-image:linear-gradient(45deg,transparent 50
       <div><h3>报告文本</h3><div class="report" id="reportText">等待生成……</div></div>
     </div>
     <div class="submit-bar hidden" id="submitBar">
-      <div class="privacy"><label><input type="checkbox" id="agreePrivacy" /> <span>我已知晓：提交后，页面会将家长手机号、所在初中、预估分、模拟志愿和风险报告提交给老师用于志愿复核咨询；本页面不收集身份证号、准考证号和官方系统密码。</span></label></div>
+      <div class="privacy"><label><input type="checkbox" id="agreePrivacy" /> <span>我同意将以上信息提交给老师用于志愿复核咨询。本页面不收集身份证号、准考证号和官方系统密码。</span></label></div>
       <div class="actions"><button class="btn btn-primary" type="button" id="submitBtn">提交给老师复核</button><a class="btn btn-secondary" href="qr.html">直接打开二维码页</a></div>
       <p id="submitStatus" class="status-msg"></p>
     </div>
@@ -157,6 +157,8 @@ function fillJuniorList(){const sel=$('juniorSchool');if(!sel)return;const old=s
 function fillHighSelects(){document.querySelectorAll('.high-select').forEach(sel=>{const batch=sel.dataset.batch;sel.innerHTML='';sel.appendChild(option('请选择',''));DATA.high.filter(h=>h.batch===batch).forEach(h=>sel.appendChild(option(`${h.name}｜${h.plan}`,h.id)));})}
 function buildVocRows(kind){const body=$(kind==='first'?'vocFirstBody':'vocSecondBody');const arr=kind==='first'?DATA.vocFirst:DATA.vocSecond;const label=kind==='first'?'第一批':'第二批';const count=kind==='first'?2:4;const schools=[...new Map(arr.map(x=>[x.schoolCode+'|'+x.school, x])).values()];body.innerHTML='';for(let i=1;i<=count;i++){const tr=document.createElement('tr');tr.innerHTML=`<td class="order" data-label="批次">${label}</td><td data-label="序号" class="order">${i}</td><td data-label="学校"><select id="${kind}School${i}" class="voc-school" data-kind="${kind}" data-row="${i}"><option value="">请选择学校</option>${schools.map(s=>`<option value="${s.schoolCode}|${escapeAttr(s.school)}">${s.school}（${s.schoolCode}）</option>`).join('')}</select></td>`;for(let j=1;j<=6;j++)tr.innerHTML+=`<td data-label="专业${j}"><select id="${kind}Major${i}_${j}" class="voc-major"><option value="">请选择专业</option></select></td>`;body.appendChild(tr);}
 document.querySelectorAll('.voc-school').forEach(s=>s.addEventListener('change',e=>{updateMajorOptions(e.target.dataset.kind,e.target.dataset.row);saveDraft(true);refreshAll();}));document.querySelectorAll('.voc-major').forEach(s=>s.addEventListener('change',()=>{saveDraft(true);refreshAll();}));}
+function ensureVocReady(){if(VOC_READY)return;buildVocRows('first');buildVocRows('second');VOC_READY=true;initMobilePickers();if(DRAFT_CACHE){Object.entries(DRAFT_CACHE).forEach(([id,val])=>{const el=$(id);if(!el)return;if(el.type==='checkbox')el.checked=!!val;else el.value=val;});['first','second'].forEach(kind=>{const count=kind==='first'?2:4;for(let i=1;i<=count;i++)updateMajorOptions(kind,i);});}}
+function draftNeedsVoc(obj){return !!(obj&&Object.keys(obj).some(id=>/^first(School|Major)|^second(School|Major)/.test(id)))}
 
 function mobilePickerEnabled(){return window.matchMedia&&window.matchMedia('(max-width: 780px)').matches}
 function mobilePickerAllowed(el){return !!(el&&(el.id==='juniorSchool'||el.classList.contains('high-select')||el.classList.contains('voc-school')||el.classList.contains('voc-major')))}
@@ -285,7 +287,7 @@ function removePendingSubmit(){try{localStorage.removeItem(PENDING_SUBMIT_KEY)}c
 function isProbablyMobile(){return /Android|iPhone|iPad|iPod|Mobile|HarmonyOS|MiuiBrowser|HuaweiBrowser|MQQBrowser|MicroMessenger/i.test(navigator.userAgent||'')||window.innerWidth<=720}
 function humanSubmitError(e){
   const msg=(e&&e.message?String(e.message):'提交失败').replace(/^Error:\s*/,'');
-  if(msg.includes('Failed to fetch')||msg.includes('NetworkError')||msg.includes('Load failed'))return '手机浏览器没有成功连接到后台接口，可能是网络、跨域或 workers.dev 访问不稳定。';
+  if(msg.includes('Failed to fetch')||msg.includes('NetworkError')||msg.includes('Load failed'))return '手机浏览器没有成功连接到后台接口，可能是网络、跨域或后台接口访问不稳定。';
   if(msg.includes('AbortError')||msg.includes('timeout')||msg.includes('signal is aborted'))return '后台响应超时，本次没有确认写入数据库。';
   return msg;
 }
